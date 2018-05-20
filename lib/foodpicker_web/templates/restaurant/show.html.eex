@@ -1,0 +1,18 @@
+<h2>Show Restaurant</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @restaurant.name %>
+  </li>
+
+  <li>
+    <strong>Price range:</strong>
+    <%= @restaurant.price_range %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: restaurant_path(@conn, :edit, @restaurant) %></span>
+<span><%= link "Back", to: restaurant_path(@conn, :index) %></span>

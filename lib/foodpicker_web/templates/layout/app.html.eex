@@ -17,6 +17,8 @@
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
             <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+            <li><a href="<%= category_path(@conn, :index) %>">Categories</a></li>
+            <li><a href="<%= restaurant_path(@conn, :index) %>">Restaurants</a></li>
           </ul>
         </nav>
         <span class="logo"></span>
