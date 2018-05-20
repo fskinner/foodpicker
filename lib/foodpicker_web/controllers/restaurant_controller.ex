@@ -10,8 +10,10 @@ defmodule FoodpickerWeb.RestaurantController do
   end
 
   def new(conn, _params) do
+    categories = Picker.list_categories()
     changeset = Picker.change_restaurant(%Restaurant{})
-    render(conn, "new.html", changeset: changeset)
+
+    render(conn, "new.html", changeset: changeset, categories: categories)
   end
 
   def create(conn, %{"restaurant" => restaurant_params}) do
@@ -20,6 +22,7 @@ defmodule FoodpickerWeb.RestaurantController do
         conn
         |> put_flash(:info, "Restaurant created successfully.")
         |> redirect(to: restaurant_path(conn, :show, restaurant))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -44,6 +47,7 @@ defmodule FoodpickerWeb.RestaurantController do
         conn
         |> put_flash(:info, "Restaurant updated successfully.")
         |> redirect(to: restaurant_path(conn, :show, restaurant))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", restaurant: restaurant, changeset: changeset)
     end
