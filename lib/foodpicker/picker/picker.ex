@@ -114,7 +114,7 @@ defmodule Foodpicker.Picker do
 
   """
   def list_restaurants do
-    Repo.all(Restaurant)
+    Repo.all(from(r in Restaurant, preload: [:categories]))
   end
 
   @doc """
@@ -131,7 +131,7 @@ defmodule Foodpicker.Picker do
       ** (Ecto.NoResultsError)
 
   """
-  def get_restaurant!(id), do: Repo.get!(Restaurant, id)
+  def get_restaurant!(id), do: Repo.get!(Restaurant, id) |> Repo.preload(:categories)
 
   @doc """
   Creates a restaurant.

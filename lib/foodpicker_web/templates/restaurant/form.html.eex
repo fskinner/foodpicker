@@ -12,6 +12,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :category_list, class: "control-label" %>
+    <%= text_input f, :category_list, class: "form-control" %>
+    <%= error_tag f, :category_list %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :price_range, class: "control-label" %>
     <%= text_input f, :price_range, class: "form-control" %>
     <%= error_tag f, :price_range %>

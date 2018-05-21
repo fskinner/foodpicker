@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Categories</th>
       <th>Price range</th>
 
       <th></th>
