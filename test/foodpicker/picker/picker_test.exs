@@ -66,8 +66,8 @@ defmodule Foodpicker.PickerTest do
   describe "restaurants" do
     alias Foodpicker.Picker.Restaurant
 
-    @valid_attrs %{name: "some name", price_range: "some price_range"}
-    @update_attrs %{name: "some updated name", price_range: "some updated price_range"}
+    @valid_attrs %{name: "some name", price_range: 1}
+    @update_attrs %{name: "some updated name", price_range: 2}
     @invalid_attrs %{name: nil, price_range: nil}
 
     def restaurant_fixture(attrs \\ %{}) do
@@ -92,7 +92,7 @@ defmodule Foodpicker.PickerTest do
     test "create_restaurant/1 with valid data creates a restaurant" do
       assert {:ok, %Restaurant{} = restaurant} = Picker.create_restaurant(@valid_attrs)
       assert restaurant.name == "some name"
-      assert restaurant.price_range == "some price_range"
+      assert restaurant.price_range == 1
     end
 
     test "create_restaurant/1 with invalid data returns error changeset" do
@@ -104,7 +104,7 @@ defmodule Foodpicker.PickerTest do
       assert {:ok, restaurant} = Picker.update_restaurant(restaurant, @update_attrs)
       assert %Restaurant{} = restaurant
       assert restaurant.name == "some updated name"
-      assert restaurant.price_range == "some updated price_range"
+      assert restaurant.price_range == 2
     end
 
     test "update_restaurant/2 with invalid data returns error changeset" do
