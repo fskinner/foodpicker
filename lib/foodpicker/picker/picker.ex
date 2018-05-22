@@ -118,7 +118,7 @@ defmodule Foodpicker.Picker do
   alias Foodpicker.Picker.Restaurant
 
   @doc """
-  Returns the list of restaurants.
+  Returns the list of restaurants with preloaded categories.
 
   ## Examples
 
@@ -131,7 +131,31 @@ defmodule Foodpicker.Picker do
   end
 
   @doc """
-  Gets a single restaurant.
+  Returns the list of restaurants matching given categories.
+
+  ## Examples
+
+      iex> match_restaurants(["japanese", "japan", "sushi"])
+      [%Restaurant{}, ...]
+
+  """
+  def match_restaurants(categories) do
+    Repo.all(
+      from(
+        r in Restaurant,
+        preload: [:categories],
+        left_join: rc in "restaurants_categories",
+        on: rc.restaurant_id == r.id,
+        join: c in Category,
+        on: c.id == rc.category_id,
+        where: c.name in ^categories,
+        group_by: r.id
+      )
+    )
+  end
+
+  @doc """
+  Gets a single restaurant with preloaded categories.
 
   Raises `Ecto.NoResultsError` if the Restaurant does not exist.
 
