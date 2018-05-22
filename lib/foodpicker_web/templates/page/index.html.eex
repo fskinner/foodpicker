@@ -1,10 +1,10 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+  <h2><%= gettext "Welcome to %{name}!", name: "Foodpicker" %></h2>
+  <p class="lead">A tool to help you decide between restaurants<br />give it a try.</p>
 </div>
 
 <div class="row marketing">
-  <div class="col-lg-6">
+  <%# <div class="col-lg-6">
     <h4>Resources</h4>
     <ul>
       <li>
@@ -32,5 +32,5 @@
         <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
       </li>
     </ul>
-  </div>
+  </div> %>
 </div>

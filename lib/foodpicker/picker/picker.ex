@@ -22,6 +22,19 @@ defmodule Foodpicker.Picker do
   end
 
   @doc """
+  Returns the list of categories filtered by name.
+
+  ## Examples
+
+      iex> find_categories_by_name("italian")
+      [%Category{name: "italiana"}, ...]
+
+  """
+  def find_categories_by_name(names) do
+    Repo.all(from(c in Category, where: c.name in ^names))
+  end
+
+  @doc """
   Gets a single category.
 
   Raises `Ecto.NoResultsError` if the Category does not exist.

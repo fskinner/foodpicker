@@ -15,12 +15,18 @@
     <div class="container">
       <header class="header">
         <nav role="navigation">
+          <ul class="nav nav-pills pull-left">
+            <li><a href="<%= page_path(@conn, :index) %>">Home</a></li>
+          </ul>
           <ul class="nav nav-pills pull-right">
             <li><a href="<%= category_path(@conn, :index) %>">Categories</a></li>
             <li><a href="<%= restaurant_path(@conn, :index) %>">Restaurants</a></li>
           </ul>
         </nav>
-        <span class="logo"></span>
+        <br>
+        <br>
+        <br>
+        <%# <span class="logo"></span> %>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

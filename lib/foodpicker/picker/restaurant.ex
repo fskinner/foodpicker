@@ -24,6 +24,7 @@ defmodule Foodpicker.Picker.Restaurant do
     |> cast(attrs, [:name, :price_range])
     |> validate_required([:name])
     |> unique_constraint(:name)
+    |> validate_inclusion(:price_range, 1..10)
     |> put_assoc(:categories, parse_categories(attrs))
   end
 
@@ -35,9 +36,8 @@ defmodule Foodpicker.Picker.Restaurant do
     |> insert_and_get_all()
   end
 
-  defp insert_and_get_all([]) do
-    []
-  end
+  defp insert_and_get_all(names) when names == nil, do: []
+  defp insert_and_get_all(names) when names == [], do: []
 
   defp insert_and_get_all(names) do
     maps =
