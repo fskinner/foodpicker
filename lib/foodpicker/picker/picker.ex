@@ -144,11 +144,8 @@ defmodule Foodpicker.Picker do
       from(
         r in Restaurant,
         preload: [:categories],
-        left_join: rc in "restaurants_categories",
-        on: rc.restaurant_id == r.id,
-        join: c in Category,
-        on: c.id == rc.category_id,
-        where: c.name in ^categories,
+        join: c in assoc(r, :categories),
+        where: c.name in ^names,
         group_by: r.id
       )
     )
