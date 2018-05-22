@@ -1,3 +1,5 @@
+require IEx
+
 defmodule Foodpicker.Picker.Restaurant do
   use Ecto.Schema
   import Ecto.Changeset
@@ -29,7 +31,7 @@ defmodule Foodpicker.Picker.Restaurant do
     (attrs["category_list"] || "")
     |> String.split(",")
     |> Enum.map(&String.trim/1)
-    |> Enum.filter(&(&1 == ""))
+    |> Enum.filter(&(&1 != ""))
     |> insert_and_get_all()
   end
 

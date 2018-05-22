@@ -8,6 +8,11 @@
   </li>
 
   <li>
+    <strong>Categories:</strong>
+    <%= Enum.map(@restaurant.categories, fn(x) -> x.name end) |> Enum.join(", ") %>
+  </li>
+
+  <li>
     <strong>Price range:</strong>
     <%= @restaurant.price_range %>
   </li>

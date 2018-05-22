@@ -14,6 +14,7 @@
 <%= for restaurant <- @restaurants do %>
     <tr>
       <td><%= restaurant.name %></td>
+      <td><%= Enum.map(restaurant.categories, fn(x) -> x.name end) |> Enum.join(", ") %></td>
       <td><%= restaurant.price_range %></td>
 
       <td class="text-right">
