@@ -48,7 +48,7 @@ defmodule Foodpicker.Picker do
       ** (Ecto.NoResultsError)
 
   """
-  def get_category!(id), do: Repo.get!(Category, id)
+  def get_category!(id), do: Repo.get!(Category, id) |> Repo.preload(:restaurants)
 
   @doc """
   Creates a category.
@@ -139,13 +139,13 @@ defmodule Foodpicker.Picker do
       [%Restaurant{}, ...]
 
   """
-  def match_restaurants(categories) do
+  def match_restaurants(categories_names) do
     Repo.all(
       from(
         r in Restaurant,
         preload: [:categories],
         join: c in assoc(r, :categories),
-        where: c.name in ^names,
+        where: c.name in ^categories_names,
         group_by: r.id
       )
     )

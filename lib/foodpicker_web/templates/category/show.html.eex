@@ -7,7 +7,12 @@
     <%= @category.name %>
   </li>
 
+  <li>
+    <strong>Restaurants:</strong>
+    <%= Enum.map(@category.restaurants, fn(x) -> x.name end) |> Enum.join(", ") %>
+  </li>
+
 </ul>
 
-<span><%= link "Edit", to: category_path(@conn, :edit, @category) %></span>
 <span><%= link "Back", to: category_path(@conn, :index) %></span>
+<span class="pull-right"><%= link "Edit", to: category_path(@conn, :edit, @category) %></span>

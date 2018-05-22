@@ -21,6 +21,8 @@ defmodule FoodpickerWeb.Router do
 
     resources("/categories", CategoryController)
     resources("/restaurants", RestaurantController)
+
+    post("/suggestion", RestaurantController, :suggest)
   end
 
   # Other scopes may use custom stacks.

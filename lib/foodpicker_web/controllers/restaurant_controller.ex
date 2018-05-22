@@ -9,6 +9,13 @@ defmodule FoodpickerWeb.RestaurantController do
     render(conn, "index.html", restaurants: restaurants)
   end
 
+  def suggest(conn, %{"suggestion" => suggestion_params}) do
+    suggestion =
+      Picker.match_restaurants(String.split(suggestion_params["categories"])) |> get_sample()
+
+    render(conn, "show.html", restaurant: suggestion)
+  end
+
   def new(conn, _params) do
     categories = Picker.list_categories()
     changeset = Picker.change_restaurant(%Restaurant{})
@@ -60,5 +67,11 @@ defmodule FoodpickerWeb.RestaurantController do
     conn
     |> put_flash(:info, "Restaurant deleted successfully.")
     |> redirect(to: restaurant_path(conn, :index))
+  end
+
+  def get_sample(list) do
+    if Enum.any?(list) do
+      Enum.random(list)
+    end
   end
 end

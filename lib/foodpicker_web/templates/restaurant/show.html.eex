@@ -1,11 +1,6 @@
-<h2>Show Restaurant</h2>
+<h2><%= @restaurant.name %></h2>
 
 <ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @restaurant.name %>
-  </li>
 
   <li>
     <strong>Categories:</strong>
@@ -19,5 +14,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: restaurant_path(@conn, :edit, @restaurant) %></span>
 <span><%= link "Back", to: restaurant_path(@conn, :index) %></span>
+<span class="pull-right"><%= link "Edit", to: restaurant_path(@conn, :edit, @restaurant) %></span>
