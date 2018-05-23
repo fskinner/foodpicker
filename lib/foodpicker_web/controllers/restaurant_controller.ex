@@ -11,7 +11,10 @@ defmodule FoodpickerWeb.RestaurantController do
 
   def suggest(conn, %{"suggestion" => suggestion_params}) do
     suggestion =
-      Picker.match_restaurants(String.split(suggestion_params["categories"])) |> get_sample()
+      (suggestion_params["categories"] || "")
+      |> split_categories()
+      |> Picker.match_restaurants()
+      |> get_sample()
 
     render(conn, "show.html", restaurant: suggestion)
   end
@@ -69,9 +72,15 @@ defmodule FoodpickerWeb.RestaurantController do
     |> redirect(to: restaurant_path(conn, :index))
   end
 
-  def get_sample(list) do
-    if Enum.any?(list) do
-      Enum.random(list)
-    end
+  defp get_sample(list) when list == [],
+    do: %Restaurant{id: 0, name: "No suggestions were found", categories: [], price_range: ""}
+
+  defp get_sample(list), do: Enum.random(list)
+
+  defp split_categories(value) do
+    value
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.filter(&(&1 != ""))
   end
 end
