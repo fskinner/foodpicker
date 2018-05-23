@@ -152,7 +152,7 @@ defmodule Foodpicker.Picker do
   def match_restaurants(categories_names, price_range)
       when categories_names == [] and price_range == "" do
     query = match_restaurants_query()
-    Repo.all(from(query))
+    Repo.all(query)
   end
 
   def match_restaurants(categories_names, price_range)
