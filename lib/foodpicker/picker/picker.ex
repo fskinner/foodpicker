@@ -139,16 +139,6 @@ defmodule Foodpicker.Picker do
       [%Restaurant{}, ...]
 
   """
-  defp match_restaurants_query() do
-    query =
-      from(
-        r in Restaurant,
-        preload: [:categories],
-        join: c in assoc(r, :categories),
-        group_by: r.id
-      )
-  end
-
   def match_restaurants(categories_names, price_range)
       when categories_names == [] and price_range == "" do
     query = match_restaurants_query()
@@ -270,5 +260,15 @@ defmodule Foodpicker.Picker do
   """
   def change_restaurant(%Restaurant{} = restaurant) do
     Restaurant.changeset(restaurant, %{})
+  end
+
+  defp match_restaurants_query() do
+    query =
+      from(
+        r in Restaurant,
+        preload: [:categories],
+        join: c in assoc(r, :categories),
+        group_by: r.id
+      )
   end
 end
