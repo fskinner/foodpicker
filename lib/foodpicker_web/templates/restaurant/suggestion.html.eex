@@ -1,0 +1,23 @@
+<%= if @suggestion.id != 0 do %>
+  <h2><%= @suggestion.name %></h2>
+  <div>
+    <strong>Price range:</strong>
+    <%= @suggestion.price_range %>
+    <h4>Categories</h4>
+    <ul>
+      <%= for category <- Enum.map(@suggestion.categories, fn(x) -> x.name end) do %>
+        <li>
+          <strong><%= category %></strong>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <br>
+  <h3>Want to try again?</h3>
+<% else %>
+  <h3>No suggestions were found</h3>
+<% end %>
+<%= render "_suggest.html", Map.put(assigns, :action, restaurant_path(@conn, :suggest)) %>
+
+<span><%= link "Back", to: page_path(@conn, :index) %></span>

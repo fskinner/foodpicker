@@ -3,7 +3,7 @@
   <p class="lead">A tool to help you decide between restaurants<br />give it a try.</p>
 </div>
 
-<%= render "_suggest.html", Map.put(assigns, :action, restaurant_path(@conn, :suggest)) %>
+<%= render FoodpickerWeb.RestaurantView, "_suggest.html", Map.put(assigns, :action, restaurant_path(@conn, :suggest)) %>
 
 <div class="row marketing">
   <%# <div class="col-lg-6">

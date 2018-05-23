@@ -16,7 +16,7 @@ defmodule FoodpickerWeb.RestaurantController do
       |> Picker.match_restaurants(suggestion_params["price"])
       |> get_sample()
 
-    render(conn, "show.html", restaurant: suggestion)
+    render(conn, "suggestion.html", suggestion: suggestion)
   end
 
   def new(conn, _params) do
