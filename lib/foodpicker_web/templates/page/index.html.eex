@@ -3,13 +3,7 @@
   <p class="lead">A tool to help you decide between restaurants<br />give it a try.</p>
 </div>
 
-<%= form_for @conn, restaurant_path(@conn, :suggest), [as: :suggestion], fn f -> %>
-  <div class="form-group">
-    <%= label f, "What are you into today?", class: "control-label" %>
-    <%= text_input f, :categories %>
-    <%= submit "Search" %>
-  </div>
-<% end %>
+<%= render "_suggest.html", Map.put(assigns, :action, restaurant_path(@conn, :suggest)) %>
 
 <div class="row marketing">
   <%# <div class="col-lg-6">

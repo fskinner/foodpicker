@@ -1,0 +1,7 @@
+<%= form_for @conn, @action, [as: :suggestion], fn f -> %>
+  <div class="form-group">
+    <%= label f, "What are you into today?", class: "control-label" %>
+    <%= text_input f, :categories %>
+    <%= submit "Search" %>
+  </div>
+<% end %>

@@ -73,7 +73,7 @@ defmodule FoodpickerWeb.RestaurantController do
   end
 
   defp get_sample(list) when list == [],
-    do: %Restaurant{id: 0, name: "No suggestions were found", categories: [], price_range: ""}
+    do: %Restaurant{id: 0}
 
   defp get_sample(list), do: Enum.random(list)
 
