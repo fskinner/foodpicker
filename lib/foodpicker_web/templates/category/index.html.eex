@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Restaurant Count</th>
 
       <th></th>
     </tr>
@@ -12,6 +13,7 @@
 <%= for category <- @categories do %>
     <tr>
       <td><%= category.name %></td>
+      <td><%= Enum.count(category.restaurants) %></td>
 
       <td class="text-right">
         <span><%= link "Show", to: category_path(@conn, :show, category), class: "btn btn-default btn-xs" %></span>

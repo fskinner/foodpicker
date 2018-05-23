@@ -1,7 +1,14 @@
 <%= form_for @conn, @action, [as: :suggestion], fn f -> %>
-  <div class="form-group">
-    <%= label f, "What are you into today?", class: "control-label" %>
-    <%= text_input f, :categories %>
-    <%= submit "Search" %>
+  <div class="form-inline">
+    <h4>What are you into today?</h4>    
+    <div class="form-group mb-3">
+      <%= label f, "Categories", class: "sr-only" %>
+      <%= text_input f, :categories, class: "form-control", placeholder: "Cuisine" %>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <%= label f, "Max price", class: "sr-only" %>
+      <%= number_input f, :price, class: "form-control", placeholder: "Max price" %>
+    </div>
+    <%= submit "Search", class: "btn btn-info mb-2" %>
   </div>
 <% end %>

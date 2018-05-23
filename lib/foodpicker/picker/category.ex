@@ -7,7 +7,12 @@ defmodule Foodpicker.Picker.Category do
   schema "categories" do
     field(:name, :string)
 
-    many_to_many(:restaurants, Restaurant, join_through: "restaurants_categories")
+    many_to_many(
+      :restaurants,
+      Restaurant,
+      join_through: "restaurants_categories",
+      on_replace: :delete
+    )
 
     timestamps()
   end

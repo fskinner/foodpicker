@@ -13,7 +13,7 @@ defmodule FoodpickerWeb.RestaurantController do
     suggestion =
       (suggestion_params["categories"] || "")
       |> split_categories()
-      |> Picker.match_restaurants()
+      |> Picker.match_restaurants(suggestion_params["price"])
       |> get_sample()
 
     render(conn, "show.html", restaurant: suggestion)

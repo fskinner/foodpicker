@@ -18,7 +18,7 @@ defmodule Foodpicker.Picker do
 
   """
   def list_categories do
-    Repo.all(Category)
+    Repo.all(Category) |> Repo.preload(:restaurants)
   end
 
   @doc """
@@ -135,18 +135,58 @@ defmodule Foodpicker.Picker do
 
   ## Examples
 
-      iex> match_restaurants(["japanese", "japan", "sushi"])
+      iex> match_restaurants(["japanese", "japan", "sushi"], 2)
       [%Restaurant{}, ...]
 
   """
-  def match_restaurants(categories_names) do
-    Repo.all(
+  defp match_restaurants_query() do
+    query =
       from(
         r in Restaurant,
         preload: [:categories],
         join: c in assoc(r, :categories),
-        where: c.name in ^categories_names,
         group_by: r.id
+      )
+  end
+
+  def match_restaurants(categories_names, price_range)
+      when categories_names == [] and price_range == "" do
+    query = match_restaurants_query()
+    Repo.all(from(query))
+  end
+
+  def match_restaurants(categories_names, price_range)
+      when categories_names == [] or categories_names == nil do
+    query = match_restaurants_query()
+
+    Repo.all(
+      from(
+        [r, c] in query,
+        where: r.price_range <= ^price_range
+      )
+    )
+  end
+
+  def match_restaurants(categories_names, price_range)
+      when price_range == "" or price_range == nil do
+    query = match_restaurants_query()
+
+    Repo.all(
+      from(
+        [r, c] in query,
+        where: c.name in ^categories_names
+      )
+    )
+  end
+
+  def match_restaurants(categories_names, price_range) do
+    query = match_restaurants_query()
+
+    Repo.all(
+      from(
+        [r, c] in query,
+        where: c.name in ^categories_names,
+        where: r.price_range <= ^price_range
       )
     )
   end

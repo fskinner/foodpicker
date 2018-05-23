@@ -13,7 +13,12 @@ defmodule Foodpicker.Picker.Restaurant do
     field(:price_range, :integer)
     field(:category_list, :string, virtual: true)
 
-    many_to_many(:categories, Category, join_through: "restaurants_categories")
+    many_to_many(
+      :categories,
+      Category,
+      join_through: "restaurants_categories",
+      on_replace: :delete
+    )
 
     timestamps()
   end
