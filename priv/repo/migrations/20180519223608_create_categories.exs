@@ -3,7 +3,7 @@ defmodule Foodpicker.Repo.Migrations.CreateCategories do
 
   def change do
     create table(:categories) do
-      add(:name, :string)
+      add(:name, :string, null: false, size: 25)
 
       timestamps()
     end

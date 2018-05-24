@@ -22,6 +22,7 @@ defmodule Foodpicker.Picker.Category do
     category
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    |> validate_length(:name, min: 2, max: 25)
     |> unique_constraint(:name)
   end
 end

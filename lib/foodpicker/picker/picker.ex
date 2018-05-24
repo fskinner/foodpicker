@@ -127,7 +127,7 @@ defmodule Foodpicker.Picker do
 
   """
   def list_restaurants do
-    Repo.all(from(r in Restaurant, preload: [:categories]))
+    Repo.all(Restaurant) |> Repo.preload(:categories)
   end
 
   @doc """
@@ -136,6 +136,12 @@ defmodule Foodpicker.Picker do
   ## Examples
 
       iex> match_restaurants(["japanese", "japan", "sushi"], 2)
+      [%Restaurant{}, ...]
+
+      iex> match_restaurants([], "")
+      [%Restaurant{}, ...]
+
+      iex> match_restaurants(nil, nil)
       [%Restaurant{}, ...]
 
   """

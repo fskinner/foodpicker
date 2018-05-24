@@ -28,6 +28,7 @@ defmodule Foodpicker.Picker.Restaurant do
     restaurant
     |> cast(attrs, [:name, :price_range])
     |> validate_required([:name])
+    |> validate_length(:name, min: 2, max: 30)
     |> unique_constraint(:name)
     |> validate_inclusion(:price_range, 1..10)
     |> put_assoc(:categories, parse_categories(attrs))
