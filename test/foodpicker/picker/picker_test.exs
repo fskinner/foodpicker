@@ -117,13 +117,13 @@ defmodule Foodpicker.PickerTest do
 
     test "match_restaurants/0 returns all restaurants matching category name" do
       restaurant = restaurant_fixture(%{category_list: "Cat1, Cat2"})
-      restaurant2 = restaurant_fixture(%{name: "another name", category_list: "Secret"})
+      _ = restaurant_fixture(%{name: "another name", category_list: "Secret"})
 
       assert Picker.match_restaurants(["Cat2"], "") == [restaurant]
     end
 
     test "match_restaurants/0 returns all restaurants matching lesser price range" do
-      restaurant = restaurant_fixture(%{category_list: "Cat1, Cat2", price_range: 3})
+      _ = restaurant_fixture(%{category_list: "Cat1, Cat2", price_range: 3})
 
       restaurant2 =
         restaurant_fixture(%{name: "another name", category_list: "Cat1, Cat2", price_range: 1})

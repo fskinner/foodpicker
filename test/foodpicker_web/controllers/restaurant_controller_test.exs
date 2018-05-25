@@ -13,9 +13,12 @@ defmodule FoodpickerWeb.RestaurantControllerTest do
   end
 
   describe "index" do
-    test "lists all restaurants", %{conn: conn} do
+    setup [:create_restaurant]
+
+    test "lists all restaurants", %{conn: conn, restaurant: restaurant} do
       conn = get(conn, restaurant_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Restaurants"
+      assert html_response(conn, 200) =~ restaurant.name
     end
   end
 
@@ -40,6 +43,11 @@ defmodule FoodpickerWeb.RestaurantControllerTest do
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, restaurant_path(conn, :create), restaurant: @invalid_attrs)
       assert html_response(conn, 200) =~ "New Restaurant"
+
+      assert html_response(conn, 200) =~
+               "Oops, something went wrong! Please check the errors below."
+
+      assert html_response(conn, 200) =~ "can&#39;t be blank"
     end
   end
 
@@ -66,6 +74,11 @@ defmodule FoodpickerWeb.RestaurantControllerTest do
     test "renders errors when data is invalid", %{conn: conn, restaurant: restaurant} do
       conn = put(conn, restaurant_path(conn, :update, restaurant), restaurant: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Restaurant"
+
+      assert html_response(conn, 200) =~
+               "Oops, something went wrong! Please check the errors below."
+
+      assert html_response(conn, 200) =~ "can&#39;t be blank"
     end
   end
 
