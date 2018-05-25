@@ -15,7 +15,8 @@ defmodule Foodpicker.Picker.Restaurant do
       :categories,
       Category,
       join_through: "restaurants_categories",
-      on_replace: :delete
+      on_replace: :delete,
+      on_delete: :delete_all
     )
 
     timestamps()
@@ -33,7 +34,7 @@ defmodule Foodpicker.Picker.Restaurant do
   end
 
   defp parse_categories(attrs) do
-    (attrs["category_list"] || "")
+    (attrs["category_list"] || attrs[:category_list] || "")
     |> String.split(",")
     |> Enum.map(&String.trim/1)
     |> Enum.filter(&(&1 != ""))

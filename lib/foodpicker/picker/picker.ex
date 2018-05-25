@@ -152,7 +152,7 @@ defmodule Foodpicker.Picker do
   end
 
   def match_restaurants(categories_names, price_range)
-      when categories_names == [] or categories_names == nil do
+      when categories_names == [] or is_nil(categories_names) do
     query = match_restaurants_query()
 
     Repo.all(
@@ -164,7 +164,7 @@ defmodule Foodpicker.Picker do
   end
 
   def match_restaurants(categories_names, price_range)
-      when price_range == "" or price_range == nil do
+      when price_range == "" or is_nil(price_range) do
     query = match_restaurants_query()
 
     Repo.all(
