@@ -21,12 +21,16 @@ defmodule Foodpicker.PickerTest do
 
     test "list_categories/0 returns all categories" do
       category = category_fixture()
-      assert Picker.list_categories() == [category]
+
+      assert Picker.list_categories() |> Enum.map(&Map.delete(&1, :restaurants)) ==
+               [category] |> Enum.map(&Map.delete(&1, :restaurants))
     end
 
     test "get_category!/1 returns the category with given id" do
       category = category_fixture()
-      assert Picker.get_category!(category.id) == category
+
+      assert Picker.get_category!(category.id) |> Map.delete(:restaurants) ==
+               category |> Map.delete(:restaurants)
     end
 
     test "create_category/1 with valid data creates a category" do
@@ -48,7 +52,9 @@ defmodule Foodpicker.PickerTest do
     test "update_category/2 with invalid data returns error changeset" do
       category = category_fixture()
       assert {:error, %Ecto.Changeset{}} = Picker.update_category(category, @invalid_attrs)
-      assert category == Picker.get_category!(category.id)
+
+      assert category |> Map.delete(:restaurants) ==
+               Picker.get_category!(category.id) |> Map.delete(:restaurants)
     end
 
     test "delete_category/1 deletes the category" do
