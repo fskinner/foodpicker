@@ -41,7 +41,8 @@ defmodule Foodpicker.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:ex_machina, "~> 2.2", only: :test},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:ex_doc, "~> 0.16", only: :dev, runtime: false}
     ]
   end
 
