@@ -1,5 +1,3 @@
-require IEx
-
 defmodule Foodpicker.Picker.Restaurant do
   use Ecto.Schema
   import Ecto.Changeset
