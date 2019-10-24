@@ -6,6 +6,9 @@ defmodule FoodpickerWeb.RestaurantControllerTest do
   @create_attrs %{name: "FooRestaurant", price_range: 7, category_list: "Italian, Pasta"}
   @update_attrs %{name: "Updated FooRestaurant", price_range: 2, category_list: "Italian, Pasta"}
   @invalid_attrs %{name: nil, price_range: nil}
+  @suggestion_params %{categories: "Italian", price: 7}
+  @suggestion_params_wrong_price %{categories: "Italian", price: 1}
+  @suggestion_params_wrong_category %{categories: "Japanese", price: 1}
 
   def fixture(:restaurant) do
     {:ok, restaurant} = Picker.create_restaurant(@create_attrs)
@@ -95,13 +98,31 @@ defmodule FoodpickerWeb.RestaurantControllerTest do
     end
   end
 
-  # describe "suggest restaurant" do
-  #   setup [:create_restaurant]
+  describe "suggest restaurant" do
+    setup [:create_restaurant]
 
-  #   test "suggest matching restaurant", %{conn: conn, restaurant: restaurant} do
-  #     conn = suggest(conn, restaurant_path(conn, :get, restaurant), )
-  #   end
-  # end
+    test "suggest matching restaurant", %{conn: conn, restaurant: restaurant} do
+      conn = post(conn, restaurant_path(conn, :suggest), suggestion: @suggestion_params)
+      assert html_response(conn, 200) =~ restaurant.name
+      assert html_response(conn, 200) =~ "Want to try again?"
+    end
+
+    test "renders empty when no matching category", %{conn: conn, restaurant: restaurant} do
+      conn =
+        post(conn, restaurant_path(conn, :suggest), suggestion: @suggestion_params_wrong_category)
+
+      assert html_response(conn, 200) =~ "No suggestions were found"
+      assert html_response(conn, 200) =~ "What are you into today?"
+    end
+
+    test "renders empty when no matching price", %{conn: conn, restaurant: restaurant} do
+      conn =
+        post(conn, restaurant_path(conn, :suggest), suggestion: @suggestion_params_wrong_price)
+
+      assert html_response(conn, 200) =~ "No suggestions were found"
+      assert html_response(conn, 200) =~ "What are you into today?"
+    end
+  end
 
   defp create_restaurant(_) do
     restaurant = fixture(:restaurant)
