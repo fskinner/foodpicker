@@ -3,6 +3,6 @@ defmodule FoodpickerWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Welcome to Foodpicker!"
+    assert html_response(conn, 200) =~ "What are you into today?"
   end
 end

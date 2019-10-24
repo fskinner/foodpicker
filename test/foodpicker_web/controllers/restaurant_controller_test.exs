@@ -3,8 +3,8 @@ defmodule FoodpickerWeb.RestaurantControllerTest do
 
   alias Foodpicker.Picker
 
-  @create_attrs %{name: "some name", price_range: 1}
-  @update_attrs %{name: "some updated name", price_range: 2}
+  @create_attrs %{name: "FooRestaurant", price_range: 7, category_list: "Italian, Pasta"}
+  @update_attrs %{name: "Updated FooRestaurant", price_range: 2, category_list: "Italian, Pasta"}
   @invalid_attrs %{name: nil, price_range: nil}
 
   def fixture(:restaurant) do
@@ -68,7 +68,7 @@ defmodule FoodpickerWeb.RestaurantControllerTest do
       assert redirected_to(conn) == restaurant_path(conn, :show, restaurant)
 
       conn = get(conn, restaurant_path(conn, :show, restaurant))
-      assert html_response(conn, 200) =~ "some updated name"
+      assert html_response(conn, 200) =~ "Updated FooRestaurant"
     end
 
     test "renders errors when data is invalid", %{conn: conn, restaurant: restaurant} do
@@ -94,6 +94,14 @@ defmodule FoodpickerWeb.RestaurantControllerTest do
       end)
     end
   end
+
+  # describe "suggest restaurant" do
+  #   setup [:create_restaurant]
+
+  #   test "suggest matching restaurant", %{conn: conn, restaurant: restaurant} do
+  #     conn = suggest(conn, restaurant_path(conn, :get, restaurant), )
+  #   end
+  # end
 
   defp create_restaurant(_) do
     restaurant = fixture(:restaurant)

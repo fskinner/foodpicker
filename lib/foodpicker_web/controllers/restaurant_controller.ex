@@ -45,6 +45,14 @@ defmodule FoodpickerWeb.RestaurantController do
 
   def edit(conn, %{"id" => id}) do
     restaurant = Picker.get_restaurant!(id)
+
+    restaurant =
+      restaurant
+      |> Map.put(
+        :category_list,
+        Enum.map(restaurant.categories, fn x -> x.name end) |> Enum.join(", ")
+      )
+
     changeset = Picker.change_restaurant(restaurant)
     render(conn, "edit.html", restaurant: restaurant, changeset: changeset)
   end
